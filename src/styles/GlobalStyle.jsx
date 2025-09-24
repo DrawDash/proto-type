@@ -35,12 +35,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button {
-    font-size: 0.9rem;
     border: 0px;
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    color: ${({ theme }) => theme.themeColor}
+	user-select: none;
   }
 
   input {

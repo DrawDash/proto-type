@@ -23,11 +23,11 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Input = ({ label, holder, id }) => {
+export const Input = ({ label, holder, id, onChange }) => {
   return (
     <Wrapper>
       <label htmlFor={id}>{label}</label>
-      <input id={id} placeholder={holder} />
+      <input id={id} placeholder={holder} onChange={onChange} />
     </Wrapper>
   );
 };

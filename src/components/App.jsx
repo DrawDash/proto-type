@@ -26,6 +26,7 @@ export const App = () => {
         <Wrapper>
           <Header />
           <Form />
+          {/* <Result /> */}
         </Wrapper>
       </ThemeProvider>
     </>

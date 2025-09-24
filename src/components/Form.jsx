@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
+import { useState } from "react";
+
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
+import { Select } from "./ui/Select";
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,6 +38,24 @@ const InputWrapper = styled.div`
 `;
 
 export const Form = () => {
+  const [univ, setUniv] = useState("");
+  const [depart, setDepart] = useState("");
+  const [category, setCategory] = useState("");
+
+  const handleUniv = (e) => {
+    setUniv(e.target.value);
+  };
+
+  const handleDepart = (e) => {
+    setDepart(e.target.value);
+  };
+
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const isFilled = () => univ.length > 0 && depart.length > 0;
+
   return (
     <Wrapper>
       <FormHeader>
@@ -42,9 +63,17 @@ export const Form = () => {
         <span>지원하고자 하는 대학교와 학과를 입력하면 맞춤형 입시 미술 주제를 추천해드립니다.</span>
       </FormHeader>
       <InputWrapper>
-        <Input label={"대학교"} id={"school-name"} holder={"예: 홍익대학교"} />
-        <Input label={"학과"} id={"gwa"} holder={"예: 회화과"} />
+        <Input label={"대학교"} id={"school-name"} holder={"예: 홍익대학교"} onChange={handleUniv} />
+        <Input label={"학과"} id={"gwa"} holder={"예: 회화과"} onChange={handleDepart} />
       </InputWrapper>
+      <Select
+        label={"카테고리"}
+        holder={"대학교와 학과를 먼저 입력해주세요"}
+        id={"category"}
+        options={["a", "b", "c"]}
+        disabled={!isFilled()}
+        valueProperty={[category, handleCategory]}
+      />
       <Button
         content={"주제 추천 받기"}
         onClick={() => {
