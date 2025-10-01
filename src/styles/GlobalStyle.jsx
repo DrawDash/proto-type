@@ -1,23 +1,22 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  @media (min-width: 320px) {
-    html { font-size: 10px; }
+  html {
+    font-size : 10px;
   }
 
-  @media (min-width: 768px) {
-    html { font-size: 12px; }
-  }
-
-  @media (min-width: 1024px) {
-    html { font-size: 16px; }
-  }
+  @media (min-width: 768px) { html { font-size: 12px; } }
+  @media (min-width: 1024px) { html { font-size: 16px; } }
 
   html, body, #root {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 
   body {
@@ -34,10 +33,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.subColor};
   }
 
-  button {
-    border: 0px;
-	user-select: none;
-  }
 
   input {
     border: 0px;

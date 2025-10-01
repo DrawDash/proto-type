@@ -7,6 +7,8 @@ import { Button } from "./ui/Button";
 import { Select } from "./ui/Select";
 
 const Wrapper = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -17,22 +19,24 @@ const Wrapper = styled.div`
 `;
 
 const FormHeader = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 
   & > h2 {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: ${({ theme }) => theme.color};
   }
 
   & > span {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: ${({ theme }) => theme.subColor};
   }
 `;
 
 const InputWrapper = styled.div`
+  width: 100%;
   display: flex;
   gap: 1rem;
 `;

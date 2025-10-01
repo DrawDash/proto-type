@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  flex-grow: 1;
 
   & > label {
     font-size: 0.9rem;
@@ -11,9 +11,11 @@ const Wrapper = styled.div`
   }
 
   & > input {
+    min-height: 2rem;
+    width: 100%;
     font-size: 0.9rem;
     background-color: ${({ theme }) => theme.hover.bgColor};
-    padding: 0.5rem 3rem 0.5rem 1rem;
+    padding-left: 0.5rem;
     border-radius: 0.3rem;
 
     &::placeholder {

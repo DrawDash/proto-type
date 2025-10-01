@@ -8,6 +8,7 @@ const StyledButton = styled.button`
   border-radius: 0.5rem;
   color: ${({ theme }) => theme.themeColor};
   font-size: 0.9rem;
+  border: 0px;
 
   &:hover {
     background-color: ${({ theme }) => theme.subColor};
