@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import styled, { ThemeProvider } from "styled-components";
-import { LightTheme, DarkTheme } from "../styles/themeStyle";
+import { LightTheme, DarkTheme } from "../styles/theme";
 import { GlobalStyle } from "../styles/GlobalStyle";
 
 import { Header } from "./Header";
@@ -51,7 +51,7 @@ const mock = [
 
 export const App = () => {
   const [theme, setTheme] = useState("light");
-  const themeStyle = theme === "light" ? LightTheme : DarkTheme;
+  const themeObject = theme === "light" ? LightTheme : DarkTheme;
   const [result, setResult] = useState(null);
 
   // 비동기 api 처리
@@ -59,8 +59,8 @@ export const App = () => {
 
   return (
     <>
-      <GlobalStyle theme={themeStyle} />
-      <ThemeProvider theme={themeStyle}>
+      <ThemeProvider theme={themeObject}>
+        <GlobalStyle />
         <Wrapper>
           <Header />
           <Form />
