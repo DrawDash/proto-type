@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
-import { Select } from "./ui/Select";
+import { KeywordInput } from "./ui/KeywordInput";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -44,7 +44,8 @@ const InputWrapper = styled.div`
 export const Form = () => {
   const [univ, setUniv] = useState("");
   const [depart, setDepart] = useState("");
-  const [category, setCategory] = useState("");
+  const [keyword, setKeyword] = useState("");
+  const [keywords, setKeywords] = useState([]);
 
   const handleUniv = (e) => {
     setUniv(e.target.value);
@@ -54,11 +55,23 @@ export const Form = () => {
     setDepart(e.target.value);
   };
 
-  const handleCategory = (e) => {
-    setCategory(e.target.value);
+  const handleKeyword = (e) => {
+    setKeyword(e.target.value);
   };
 
-  const isFilled = () => univ.length > 0 && depart.length > 0;
+  const handleKeywords = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setKeywords([...keywords, keyword]);
+      setKeyword("");
+    }
+  };
+
+  const deleteKeywords = (i) => {
+    setKeywords([...keywords.slice(0, i), ...keywords.slice(i + 1)]);
+  };
+
+  const isFilled = () => univ.length === 0 || depart.length === 0;
 
   return (
     <Wrapper>
@@ -67,18 +80,29 @@ export const Form = () => {
         <span>지원하고자 하는 대학교와 학과를 입력하면 맞춤형 입시 미술 주제를 추천해드립니다.</span>
       </FormHeader>
       <InputWrapper>
-        <Input label={"대학교"} id={"school-name"} holder={"예: 홍익대학교"} onChange={handleUniv} />
-        <Input label={"학과"} id={"gwa"} holder={"예: 회화과"} onChange={handleDepart} />
+        <Input
+          label={"대학교"}
+          id={"school-name"}
+          holder={"예: 홍익대학교"}
+          value={univ}
+          onChange={handleUniv}
+        />
+        <Input label={"학과"} id={"gwa"} holder={"예: 회화과"} value={depart} onChange={handleDepart} />
       </InputWrapper>
-      <Select
-        label={"카테고리"}
-        holder={"대학교와 학과를 먼저 입력해주세요"}
-        id={"category"}
-        options={["a", "b", "c"]}
-        disabled={!isFilled()}
-        valueProperty={[category, handleCategory]}
+      <KeywordInput
+        inputProperty={{
+          label: "키워드",
+          id: "keyword",
+          holder: "키워드를 입력하고 Enter로 추가해주세요. (중복 키워드 입력은 불가능합니다)",
+          value: keyword,
+          onChange: handleKeyword,
+          onKeyDown: handleKeywords,
+        }}
+        keywords={keywords}
+        deleteKeywords={deleteKeywords}
       />
       <Button
+        disabled={isFilled()}
         content={"주제 추천 받기"}
         onClick={() => {
           alert("온클릭 !");
