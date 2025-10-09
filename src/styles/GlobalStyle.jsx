@@ -11,11 +11,11 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100%;
     width: 100%;
-    margin: 0;
-    padding: 0;
   }
 
   *, *::before, *::after {
+	margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
 
@@ -30,11 +30,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   span {
-    color: ${({ theme }) => theme.subColor};
+    line-height: 1;
   }
 
-
-  input {
+  input, button {
     border: 0px;
+  }
+
+  button {
+	cursor: pointer;
   }
 `;
