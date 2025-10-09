@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledButton = styled.button`
   background-color: #777777;
-  cursor: pointer;
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -11,10 +10,18 @@ const StyledButton = styled.button`
   border: 0px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.subColor};
+    background-color: ${({ theme, disabled }) => (disabled ? "#777777" : theme.subColor)};
   }
 `;
 
-export const Button = ({ content, onClick }) => {
-  return <StyledButton onClick={onClick}>{content}</StyledButton>;
+export const Button = ({ disabled, content, onClick }) => {
+  const disabledFunc = () => {
+    alert("필수 요소를 입력해주세요!");
+  };
+  console.log(disabled);
+  return (
+    <StyledButton onClick={disabled ? disabledFunc : onClick} disabled={disabled}>
+      {content}
+    </StyledButton>
+  );
 };
