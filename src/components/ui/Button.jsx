@@ -1,26 +1,18 @@
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  background-color: #777777;
+  background-color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.bgColor : theme.color)};
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  color: ${({ theme }) => theme.themeColor};
+  color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.placeholder.color : theme.themeColor)};
   font-size: 0.9rem;
   border: 0px;
-
-  &:hover {
-    background-color: ${({ theme, disabled }) => (disabled ? "#777777" : theme.subColor)};
-  }
 `;
 
-export const Button = ({ disabled, content, onClick }) => {
-  const disabledFunc = () => {
-    alert("필수 요소를 입력해주세요!");
-  };
-  console.log(disabled);
+export const Button = ({ isDisabled = false, content, onClick }) => {
   return (
-    <StyledButton onClick={disabled ? disabledFunc : onClick} disabled={disabled}>
+    <StyledButton onClick={onClick} $isDisabled={isDisabled}>
       {content}
     </StyledButton>
   );
