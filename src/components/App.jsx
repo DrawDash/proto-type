@@ -5,7 +5,7 @@ import { LightTheme, DarkTheme } from "../styles/theme";
 import { GlobalStyle } from "../styles/GlobalStyle";
 
 import { Header } from "./Header";
-import { Form } from "./Form";
+import { Form } from "./form/Form";
 import { Result } from "./Result";
 
 const Wrapper = styled.div`
