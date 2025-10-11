@@ -12,8 +12,7 @@ const Wrapper = styled.div`
   max-width: 50rem;
   min-width: 32rem;
   margin: 0 auto;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding: 3rem 1rem;
 
   display: flex;
   flex-direction: column;
