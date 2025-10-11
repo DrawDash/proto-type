@@ -21,34 +21,6 @@ const Wrapper = styled.div`
   gap: 2rem;
 `;
 
-const mock = [
-  {
-    title: "제목",
-    category: "카테고리",
-    contents: "내용",
-  },
-  {
-    title: "제목",
-    category: "카테고리",
-    contents: "내용",
-  },
-  {
-    title: "제목",
-    category: "카테고리",
-    contents: "내용",
-  },
-  {
-    title: "제목",
-    category: "카테고리",
-    contents: "내용",
-  },
-  {
-    title: "제목",
-    category: "카테고리",
-    contents: "내용",
-  },
-];
-
 export const App = () => {
   const [theme, setTheme] = useState("light");
   const themeObject = theme === "light" ? LightTheme : DarkTheme;
@@ -64,7 +36,7 @@ export const App = () => {
         <Wrapper>
           <Header />
           <Form />
-          <Result result={mock} />
+          <Result />
         </Wrapper>
       </ThemeProvider>
     </>
