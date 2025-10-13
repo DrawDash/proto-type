@@ -1,13 +1,10 @@
 import styled from "styled-components";
 
-import { useState, useRef, useCallback } from "react";
-
 import { Input } from "../ui/Input/Input";
 import { Button } from "../ui/Button";
 import { KeywordInput } from "../ui/keyword/KeywordInput";
 import { useKeyHandler } from "../../hooks/useKeyHandler";
-import { useInput } from "../ui/Input/useInput";
-import { useKeyword } from "../ui/keyword/useKeyword";
+import { memo } from "react";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -38,11 +35,11 @@ const InputWrapper = styled.div`
 `;
 
 // 여러개의 사용자 입력을 관리하고 제출하는 폼 컴포넌트
-export const Form = () => {
-  const { state: univ, handleState: handleUniv, ref: univRef } = useInput("");
-  const { state: depart, handleState: handleDepart, ref: departRef } = useInput("");
-  const { state: keyword, setState: setKeyword, handleState: handleKeyword } = useInput("");
-  const { keywords, handleKeywords: addKeyword, deleteKeywords } = useKeyword(keyword, setKeyword);
+const FormComponent = ({ univObj, departObj, keywordObj, keywordsObj }) => {
+  const { state: univ, handleState: handleUniv, ref: univRef } = univObj;
+  const { state: depart, handleState: handleDepart, ref: departRef } = departObj;
+  const { state: keyword, setState: setKeyword, handleState: handleKeyword } = keywordObj;
+  const { keywords, handleKeywords: addKeyword, deleteKeywords } = keywordsObj;
 
   // 키워드 추가 함수를 "Enter"에 트리거
   const handleEnterKeywords = useKeyHandler(addKeyword, ["Enter"]);
@@ -62,6 +59,8 @@ export const Form = () => {
 
     console.log("valid form!");
   };
+
+  console.log("rendering Form");
 
   return (
     <Wrapper>
@@ -103,3 +102,5 @@ export const Form = () => {
     </Wrapper>
   );
 };
+
+export const Form = memo(FormComponent);

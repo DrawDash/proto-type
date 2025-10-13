@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
@@ -10,10 +11,10 @@ const StyledButton = styled.button`
   border: 0px;
 `;
 
-export const Button = ({ isDisabled = false, content, onClick }) => {
+export const Button = memo(({ isDisabled = false, content, onClick }) => {
   return (
     <StyledButton onClick={onClick} $isDisabled={isDisabled}>
       {content}
     </StyledButton>
   );
-};
+});

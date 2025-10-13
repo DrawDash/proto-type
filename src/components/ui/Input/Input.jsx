@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,11 +25,11 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Input = ({ label, holder, id, value, onChange, onKeyDown, ref }) => {
+export const Input = memo(({ label, holder, id, value, onChange, onKeyDown, ref }) => {
   return (
     <Wrapper>
       <label htmlFor={id}>{label}</label>
       <input id={id} placeholder={holder} value={value} onChange={onChange} onKeyDown={onKeyDown} ref={ref} />
     </Wrapper>
   );
-};
+});

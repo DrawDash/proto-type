@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { memo } from "react";
+
 import { Input } from "../Input/Input";
 import CloseIcon from "../../../assets/close.svg?react";
 
@@ -52,7 +53,7 @@ const DeleteIcon = styled.button`
   }
 `;
 
-export const KeywordInput = ({ inputProperty, keywords, deleteKeywords }) => {
+export const KeywordInput = memo(({ inputProperty, keywords, deleteKeywords }) => {
   return (
     <Wrapper>
       <Input {...inputProperty} />
@@ -74,4 +75,4 @@ export const KeywordInput = ({ inputProperty, keywords, deleteKeywords }) => {
       </KeywordWrapper>
     </Wrapper>
   );
-};
+});

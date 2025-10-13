@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 
 // 키워드 관리 훅
 export const useKeyword = (keyword, setKeyword) => {
@@ -12,12 +12,14 @@ export const useKeyword = (keyword, setKeyword) => {
     }
     setKeywords((prev) => [...prev, keyword]);
     setKeyword("");
-  }, [keyword, setKeyword, keywords, setKeywords]);
+  }, [keyword, setKeyword, keywords]);
 
   // 키워드 제거
   const deleteKeywords = useCallback((target) => {
     setKeywords((prev) => [...prev.filter((_, i) => i !== target)]);
   }, []);
 
-  return { keywords, setKeywords, handleKeywords, deleteKeywords };
+  return useMemo(() => {
+    return { keywords, setKeywords, handleKeywords, deleteKeywords };
+  }, [keywords, setKeywords, handleKeywords, deleteKeywords]);
 };

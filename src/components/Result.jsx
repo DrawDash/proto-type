@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 import { Box } from "./ui/Box";
 import LibIcon from "../assets/library.svg?react";
@@ -77,9 +77,11 @@ const General = styled.div`
   }
 `;
 
-export const Result = () => {
+export const Result = memo(() => {
   const data = JSON.parse(JSON.stringify(mockData));
-  console.log(data);
+
+  console.log("rendering Result");
+
   return (
     <Wrapper>
       <Content>
@@ -125,4 +127,4 @@ export const Result = () => {
       </General>
     </Wrapper>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useMemo } from "react";
 
 export const useInput = (initial) => {
   const [state, setState] = useState(initial);
@@ -8,5 +8,7 @@ export const useInput = (initial) => {
     setState(e.target.value);
   }, []);
 
-  return { state, setState, handleState, ref };
+  return useMemo(() => {
+    return { state, setState, handleState, ref };
+  }, [state, setState, handleState, ref]);
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import styled, { ThemeProvider } from "styled-components";
 import { LightTheme, DarkTheme } from "../styles/theme";
@@ -7,6 +7,8 @@ import { GlobalStyle } from "../styles/GlobalStyle";
 import { Header } from "./Header";
 import { Form } from "./form/Form";
 import { Result } from "./Result";
+import { useInput } from "./ui/Input/useInput";
+import { useKeyword } from "./ui/keyword/useKeyword";
 
 const Wrapper = styled.div`
   max-width: 50rem;
@@ -24,9 +26,15 @@ export const App = () => {
   const [theme, setTheme] = useState("light");
   const themeObject = theme === "light" ? LightTheme : DarkTheme;
   const [result, setResult] = useState(null);
+  const univObj = useInput("");
+  const departObj = useInput("");
+  const keywordObj = useInput("");
+  const { state: keyword, setState: setKeyword } = keywordObj;
+  const keywordsObj = useKeyword(keyword, setKeyword);
 
-  // 비동기 api 처리
-  const handleResult = () => {};
+  const formProps = useMemo(() => {
+    return { univObj, departObj, keywordObj, keywordsObj };
+  }, [univObj, departObj, keywordObj, keywordsObj]);
 
   return (
     <>
@@ -34,7 +42,7 @@ export const App = () => {
         <GlobalStyle />
         <Wrapper>
           <Header />
-          <Form />
+          <Form {...formProps} />
           <Result />
         </Wrapper>
       </ThemeProvider>
