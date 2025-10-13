@@ -35,7 +35,7 @@ const InputWrapper = styled.div`
 `;
 
 // 여러개의 사용자 입력을 관리하고 제출하는 폼 컴포넌트
-const FormComponent = ({ univObj, departObj, keywordObj, keywordsObj }) => {
+const FormComponent = ({ univObj, departObj, keywordObj, keywordsObj, handleResult }) => {
   const { state: univ, handleState: handleUniv, ref: univRef } = univObj;
   const { state: depart, handleState: handleDepart, ref: departRef } = departObj;
   const { state: keyword, setState: setKeyword, handleState: handleKeyword } = keywordObj;
@@ -57,7 +57,7 @@ const FormComponent = ({ univObj, departObj, keywordObj, keywordsObj }) => {
       return;
     }
 
-    console.log("valid form!");
+    handleResult();
   };
 
   console.log("rendering Form");
