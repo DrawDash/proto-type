@@ -37,7 +37,7 @@ const Keyword = styled.div`
   }
 `;
 
-const IconWrapper = styled.button`
+const DeleteIcon = styled.button`
   display: flex;
 
   &:hover {
@@ -64,9 +64,9 @@ export const KeywordInput = ({ inputProperty, keywords, deleteKeywords }) => {
             return (
               <Keyword key={i}>
                 <span>{e}</span>
-                <IconWrapper onClick={() => deleteKeywords(i)}>
+                <DeleteIcon onClick={() => deleteKeywords(i)}>
                   <CloseIcon />
-                </IconWrapper>
+                </DeleteIcon>
               </Keyword>
             );
           })

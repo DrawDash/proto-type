@@ -3,13 +3,11 @@ import MainIcon from "../assets/main.svg?react";
 
 const Wrapper = styled.div`
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
 
   & > span {
-    font-size: 1rem;
     word-spacing: 0.2rem;
     font-weight: 300;
   }
@@ -22,14 +20,12 @@ const StyledHeader = styled.div`
   gap: 0.2rem;
 
   & > h1 {
-    font-size: 2rem;
-    font-weight: 400;
     letter-spacing: 0.2rem;
   }
 
   & > svg {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 2rem;
+    height: 2rem;
     fill: ${({ theme }) => theme.color};
   }
 `;

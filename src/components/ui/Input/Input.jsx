@@ -13,13 +13,12 @@ const Wrapper = styled.div`
   & > input {
     min-height: 2rem;
     width: 100%;
-    font-size: 0.9rem;
     background-color: ${({ theme }) => theme.hover.bgColor};
     padding-left: 0.5rem;
     border-radius: 0.3rem;
 
     &::placeholder {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: ${({ theme }) => theme.subColor};
     }
   }

@@ -11,7 +11,6 @@ import { useKeyword } from "../ui/keyword/useKeyword";
 
 const Wrapper = styled.div`
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -27,13 +26,7 @@ const FormHeader = styled.div`
   flex-direction: column;
   gap: 0.2rem;
 
-  & > h2 {
-    font-size: 1.2rem;
-    color: ${({ theme }) => theme.color};
-  }
-
-  & > span {
-    font-size: 1rem;
+  & > p {
     color: ${({ theme }) => theme.subColor};
   }
 `;
@@ -73,8 +66,8 @@ export const Form = () => {
   return (
     <Wrapper>
       <FormHeader>
-        <h2>미술 주제 추천받기</h2>
-        <span>지원하고자 하는 대학교와 학과를 입력하면 맞춤형 입시 미술 주제를 추천해드립니다.</span>
+        <h4>미술 주제 추천받기</h4>
+        <p>지원하고자 하는 대학교와 학과를 입력하면 맞춤형 입시 미술 주제를 추천해드립니다.</p>
       </FormHeader>
       <InputWrapper>
         <Input
