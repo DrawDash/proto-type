@@ -25,14 +25,7 @@ const Wrapper = styled.div`
 
 export const App = () => {
   const [theme, setTheme] = useState("light");
-  const themeObject = theme === "light" ? LightTheme : DarkTheme;
   const [result, setResult] = useState(null);
-  const univObj = useInput("");
-  const departObj = useInput("");
-  const keywordObj = useInput("");
-  const { state: keyword, setState: setKeyword } = keywordObj;
-  const keywordsObj = useKeyword(keyword, setKeyword);
-  const { state: keywords } = keywordsObj;
 
   const handleResult = useCallback(() => {
     const payload = {
@@ -41,24 +34,20 @@ export const App = () => {
       keywords,
     };
 
-    // const result = generateTopic(payload).then();
-    const result = getUniv().then((res) => {
-      console.log(res);
-    });
+    // const result = generateTopic(payload).then((res));
+    // const result = getUniv().then((res) => {
+    //   console.log(res);
+    // });
     console.log(result);
   }, []);
 
-  const formProps = useMemo(() => {
-    return { univObj, departObj, keywordObj, keywordsObj };
-  }, [univObj, departObj, keywordObj, keywordsObj]);
-
   return (
     <>
-      <ThemeProvider theme={themeObject}>
+      <ThemeProvider theme={theme === "light" ? LightTheme : DarkTheme}>
         <GlobalStyle />
         <Wrapper>
           <Header />
-          <Form {...formProps} handleResult={handleResult} />
+          <Form handleResult={handleResult} />
           <Result />
         </Wrapper>
       </ThemeProvider>
