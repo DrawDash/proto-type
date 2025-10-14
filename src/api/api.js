@@ -1,33 +1,58 @@
 export const generateTopic = async (payload) => {
   const url = "/api/topics/generate/";
+  console.log("API : generateTopic");
 
-  console.log(url);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+    if (!response.ok) {
+      throw new Error(`API 통신 실패: ${response.status} (${response.statusText})`);
+    }
 
-  if (!response.ok) {
-    console.log(response);
+    return await response.json();
+  } catch (err) {
+    console.error("generateTopic 호출 중 오류 발생: ", err);
     return null;
   }
-
-  return await response.json();
 };
 
 export const getUniv = async () => {
   const url = "/api/schools/";
+  console.log("API : getUniv");
 
-  const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-  if (!response.ok) {
-    console.log(response);
+    if (!response.ok) {
+      throw new Error(`API 통신 실패: ${response.status} (${response.statusText})`);
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error("getUniv 호출 중 오류 발생: ", err);
     return null;
   }
+};
 
-  return await response.json();
+export const getDepart = async () => {
+  const url = "/api/schools/1/departments/";
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`API 통신 실패: ${response.status} (${response.statusText})`);
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error("getUniv 호출 중 오류 발생: ", err);
+    return null;
+  }
 };
