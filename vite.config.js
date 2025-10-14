@@ -6,8 +6,9 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
-
   const API_TARGET = env.VITE_API_ENDPOINT;
+
+  console.log(API_TARGET);
 
   return {
     plugins: [react(), vitePluginSvgr(), basicSsl()],
