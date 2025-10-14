@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { memo } from "react";
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -25,11 +26,22 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Input = memo(({ label, holder, id, value, onChange, onKeyDown, ref }) => {
+export const Input = memo(({ inputObj }) => {
+  const { label, holder, id, state, handleState, onKeyDown, onFocus, onBlur, ref } = inputObj;
+
   return (
     <Wrapper>
       <label htmlFor={id}>{label}</label>
-      <input id={id} placeholder={holder} value={value} onChange={onChange} onKeyDown={onKeyDown} ref={ref} />
+      <input
+        id={id}
+        placeholder={holder}
+        value={state}
+        onChange={handleState}
+        onKeyDown={onKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        ref={ref}
+      />
     </Wrapper>
   );
 });
