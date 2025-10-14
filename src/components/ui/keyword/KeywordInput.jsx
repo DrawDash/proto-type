@@ -53,10 +53,10 @@ const DeleteIcon = styled.button`
   }
 `;
 
-export const KeywordInput = memo(({ inputProperty, keywords, deleteKeywords }) => {
+export const KeywordInput = memo(({ inputObj, keywords, deleteKeywords }) => {
   return (
     <Wrapper>
-      <Input {...inputProperty} />
+      <Input inputObj={inputObj} />
       <KeywordWrapper>
         {keywords.length === 0 ? (
           <span>키워드없이 주제 생성이 가능합니다.</span>
