@@ -6,10 +6,18 @@ import { useSupportedList } from "./useSupportedList";
 import { Select } from "../Select";
 
 const Wrapper = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
+
+  & > span {
+    position: absolute;
+    top: 105%;
+    visibility: ${({ $isValid }) => ($isValid ? "hidden" : "visible")};
+    font-size: 0.8rem;
+    color: red;
+  }
 `;
 
 const SearchList = styled.ul`
@@ -40,17 +48,22 @@ const SearchList = styled.ul`
   }
 `;
 
-export const SelectInput = memo(({ inputObj, select, getSelect }) => {
-  const { state, setState, ref } = inputObj;
+export const SelectInput = memo(({ inputObj, select, getSelect, submitIsVaild }) => {
   const { supportedList, setSupportedList } = useSupportedList(`supported${select}`, getSelect);
+  const { label, state, setState, ref } = inputObj;
   const [isOpen, setIsOpen] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const openList = () => setIsOpen(true);
   const closeList = () => setIsOpen(false);
   const selectList = (e) => {
-    setState(e.name);
+    if (e.name !== "검색 결과가 없습니다") setState(e.name);
     closeList();
     ref.current.blur();
+  };
+  const handleIsValid = (value) => {
+    setIsValid(value);
+    submitIsVaild(value);
   };
 
   const filteredList = useMemo(() => {
@@ -59,9 +72,19 @@ export const SelectInput = memo(({ inputObj, select, getSelect }) => {
     return list.length === 0 ? [{ id: 0, name: "검색 결과가 없습니다" }] : list;
   }, [supportedList, state]);
 
+  useEffect(() => {
+    if (!state || state === "") {
+      handleIsValid(false);
+      return;
+    }
+
+    handleIsValid(supportedList.some((e) => e.name === state));
+  }, [supportedList, handleIsValid]);
+
   return (
-    <Wrapper>
-      <Input inputObj={{ ...inputObj, onFocus: openList, onBlur: closeList }} />
+    <Wrapper $isValid={isValid || state === ""}>
+      <Input inputObj={{ ...inputObj, onFocus: openList, onBlur: closeList, isValid }} />
+      <span>{`유효한 ${label}을 입력해주세요.`}</span>
       <SearchList $isOpen={isOpen} onMouseDown={(e) => e.preventDefault()}>
         {filteredList?.map((e) => {
           return (

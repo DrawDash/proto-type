@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { memo } from "react";
+import { memo, useState } from "react";
 
 import { Button } from "../ui/Button";
 import { KeywordInput } from "../ui/keyword/KeywordInput";
@@ -38,13 +38,14 @@ const InputWrapper = styled.div`
   gap: 1rem;
 `;
 
-// 여러개의 사용자 입력을 관리하고 제출하는 폼 컴포넌트
 export const Form = memo(({ handleResult }) => {
   const univObj = useInput("");
   const { state: univ, univRef } = univObj;
+  const [isValidUniv, setIsValidUniv] = useState(false);
 
   const departObj = useInput("");
   const { state: depart, departRef } = departObj;
+  const [isValidDepart, setIsValidDepart] = useState(false);
 
   const keywordObj = useInput("");
   const { state: keyword, setState: setKeyword } = keywordObj;
@@ -52,13 +53,11 @@ export const Form = memo(({ handleResult }) => {
   const keywordsObj = useKeyword(keyword, setKeyword);
   const { keywords, handleKeywords, deleteKeywords } = keywordsObj;
 
-  // 키워드 추가 함수를 "Enter"에 트리거
   const handleEnterKeywords = useKeyHandler(handleKeywords, ["Enter"]);
-
-  const invalidForm = () => univ.length > 0 && depart.length > 0;
+  const isDisabledButton = () => !(isValidUniv && isValidDepart);
 
   const submitForm = () => {
-    handleResult();
+    console.log(univ, depart);
   };
 
   return (
@@ -77,6 +76,7 @@ export const Form = memo(({ handleResult }) => {
           }}
           select={"Univ"}
           getSelect={getUniv}
+          submitIsVaild={setIsValidUniv}
         />
         <SelectInput
           inputObj={{
@@ -87,6 +87,7 @@ export const Form = memo(({ handleResult }) => {
           }}
           select={"Depart"}
           getSelect={getDepart}
+          submitIsVaild={setIsValidDepart}
         />
       </InputWrapper>
       <KeywordInput
@@ -100,7 +101,7 @@ export const Form = memo(({ handleResult }) => {
         keywords={keywords}
         deleteKeywords={deleteKeywords}
       />
-      <Button isDisabled={!invalidForm()} content={"주제 추천 받기"} onClick={submitForm} />
+      <Button isDisabled={isDisabledButton()} content={"주제 추천 받기"} onClick={submitForm} />
     </Wrapper>
   );
 });

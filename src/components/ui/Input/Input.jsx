@@ -18,6 +18,8 @@ const Wrapper = styled.div`
     background-color: ${({ theme }) => theme.hover.bgColor};
     padding-left: 0.5rem;
     border-radius: 0.3rem;
+    border: ${({ $isValid }) => ($isValid === false ? "0.1rem solid red" : "")};
+    outline-color: ${({ $isValid }) => ($isValid === false ? "red" : "")};
 
     &::placeholder {
       font-size: 0.8rem;
@@ -27,10 +29,10 @@ const Wrapper = styled.div`
 `;
 
 export const Input = memo(({ inputObj }) => {
-  const { label, holder, id, state, handleState, onKeyDown, onFocus, onBlur, ref } = inputObj;
+  const { label, holder, id, state, handleState, onKeyDown, onFocus, onBlur, ref, isValid = true } = inputObj;
 
   return (
-    <Wrapper>
+    <Wrapper $isValid={isValid || state === ""}>
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
