@@ -56,10 +56,6 @@ export const Form = memo(({ handleResult }) => {
   const handleEnterKeywords = useKeyHandler(handleKeywords, ["Enter"]);
   const isDisabledButton = () => !(isValidUniv && isValidDepart);
 
-  const submitForm = () => {
-    console.log(univ, depart);
-  };
-
   return (
     <Wrapper>
       <FormHeader>
@@ -101,7 +97,11 @@ export const Form = memo(({ handleResult }) => {
         keywords={keywords}
         deleteKeywords={deleteKeywords}
       />
-      <Button isDisabled={isDisabledButton()} content={"주제 추천 받기"} onClick={submitForm} />
+      <Button
+        isDisabled={isDisabledButton()}
+        content={"주제 추천 받기"}
+        onClick={() => handleResult({ univ, depart, keywords })}
+      />
     </Wrapper>
   );
 });

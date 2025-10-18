@@ -10,6 +10,7 @@ import { Result } from "./Result";
 import { useInput } from "./ui/Input/useInput";
 import { useKeyword } from "./ui/keyword/useKeyword";
 import { generateTopic, getUniv } from "../api/api";
+import { LoadLocalStorage } from "../utils/LoadLocalStorage";
 
 const Wrapper = styled.div`
   max-width: 50rem;
@@ -27,18 +28,22 @@ export const App = () => {
   const [theme, setTheme] = useState("light");
   const [result, setResult] = useState(null);
 
-  const handleResult = useCallback(() => {
+  const handleResult = useCallback(async ({ univ, depart, keywords }) => {
+    // 스토리지를 통해 임시로 처리하는 로직
     const payload = {
-      school_id: 1,
-      department_id: 1,
+      school_id: LoadLocalStorage(`supportedUniv`).filter((e) => e.name === univ)[0].id,
+      department_id: LoadLocalStorage(`supportedDepart`).filter((e) => e.name === depart)[0].id,
       keywords,
     };
 
-    // const result = generateTopic(payload).then((res));
-    // const result = getUniv().then((res) => {
-    //   console.log(res);
-    // });
-    console.log(result);
+    console.log(payload);
+
+    try {
+      const result = await generateTopic(payload);
+      console.log(result);
+    } catch (e) {
+      console.error("주제 생성 중 오류 발생", e);
+    }
   }, []);
 
   return (
