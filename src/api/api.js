@@ -1,5 +1,7 @@
+const API_TARGET = import.meta.env.VITE_API_ENDPOINT;
+
 export const generateTopic = async (payload) => {
-  const url = "/api/topics/generate/";
+  const url = `${API_TARGET}/api/topics/generate/`;
   console.log("API : generateTopic");
 
   try {
@@ -23,7 +25,7 @@ export const generateTopic = async (payload) => {
 };
 
 export const getUniv = async () => {
-  const url = "/api/schools/";
+  const url = `${API_TARGET}/api/schools`;
   console.log("API : getUniv");
 
   try {
@@ -41,7 +43,7 @@ export const getUniv = async () => {
 };
 
 export const getDepart = async () => {
-  const url = "/api/schools/1/departments/";
+  const url = `${API_TARGET}/api/schools/1/departments/`;
 
   try {
     const response = await fetch(url);
