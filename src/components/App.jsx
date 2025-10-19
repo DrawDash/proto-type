@@ -7,9 +7,8 @@ import { GlobalStyle } from "../styles/GlobalStyle";
 import { Header } from "./Header";
 import { Form } from "./form/Form";
 import { Result } from "./Result";
-import { useInput } from "./ui/Input/useInput";
-import { useKeyword } from "./ui/keyword/useKeyword";
-import { generateTopic, getUniv } from "../api/api";
+import { generateTopic } from "../api/api";
+import { useFetchData } from "../hooks/useFetchData";
 import { LoadLocalStorage } from "../utils/LoadLocalStorage";
 
 const Wrapper = styled.div`
@@ -26,25 +25,25 @@ const Wrapper = styled.div`
 
 export const App = () => {
   const [theme, setTheme] = useState("light");
-  const [result, setResult] = useState(null);
+  const [payload, setPayload] = useState(null);
 
-  const handleResult = useCallback(async ({ univ, depart, keywords }) => {
-    // 스토리지를 통해 임시로 처리하는 로직
-    const payload = {
-      school_id: LoadLocalStorage(`supportedUniv`).filter((e) => e.name === univ)[0].id,
-      department_id: LoadLocalStorage(`supportedDepart`).filter((e) => e.name === depart)[0].id,
+  const handlePayload = (univ, depart, keywords) => {
+    const newPayload = {
+      school_id: LoadLocalStorage("supportedUniv").filter((e) => e.name === univ)[0].id,
+      department_id: LoadLocalStorage("supportedDepart").filter((e) => e.name === depart)[0].id,
       keywords,
     };
 
-    console.log(payload);
+    setPayload(newPayload);
+  };
 
-    try {
-      const result = await generateTopic(payload);
-      console.log(result);
-    } catch (e) {
-      console.error("주제 생성 중 오류 발생", e);
-    }
-  }, []);
+  const fetchResult = useCallback(() => {
+    if (!payload) return Promise.resolve(null);
+
+    return generateTopic(payload);
+  }, [payload]);
+
+  const { isLoading, result: topicResult } = useFetchData(fetchResult);
 
   return (
     <>
@@ -52,8 +51,8 @@ export const App = () => {
         <GlobalStyle />
         <Wrapper>
           <Header />
-          <Form handleResult={handleResult} />
-          <Result />
+          <Form handlePayload={handlePayload} isLoading={isLoading} />
+          <Result topic={topicResult} />
         </Wrapper>
       </ThemeProvider>
     </>

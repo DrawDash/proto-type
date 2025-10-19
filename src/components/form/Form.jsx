@@ -38,7 +38,7 @@ const InputWrapper = styled.div`
   gap: 1rem;
 `;
 
-export const Form = memo(({ handleResult }) => {
+export const Form = memo(({ handlePayload, isLoading }) => {
   const univObj = useInput("");
   const { state: univ, univRef } = univObj;
   const [isValidUniv, setIsValidUniv] = useState(false);
@@ -100,7 +100,8 @@ export const Form = memo(({ handleResult }) => {
       <Button
         isDisabled={isDisabledButton()}
         content={"주제 추천 받기"}
-        onClick={() => handleResult({ univ, depart, keywords })}
+        onClick={() => handlePayload(univ, depart, keywords)}
+        isLoading={isLoading}
       />
     </Wrapper>
   );

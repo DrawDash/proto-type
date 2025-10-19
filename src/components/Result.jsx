@@ -77,33 +77,33 @@ const General = styled.div`
   }
 `;
 
-export const Result = memo(() => {
-  const data = JSON.parse(JSON.stringify(mockData));
+export const Result = memo(({ topic }) => {
+  //   const data = JSON.parse(JSON.stringify(mockData));
 
   console.log("rendering Result");
 
-  return (
+  return topic !== null ? (
     <Wrapper>
       <Content>
-        <h4>{data.title}</h4>
+        <h4>{topic.title}</h4>
         <p>
           <LibIcon />
-          {`${data.school_name}·${data.department_name}`}
+          {`${topic.school_name}·${topic.department_name}`}
         </p>
       </Content>
       <Content>
         <h5>출제 의도</h5>
-        <p>{data.context}</p>
+        <p>{topic.context}</p>
       </Content>
       <Keyword>
-        {data.keywords &&
-          data.keywords.map((keyword, i) => {
+        {topic.keywords &&
+          topic.keywords.map((keyword, i) => {
             return <span key={i}>{keyword}</span>;
           })}
       </Keyword>
       <Detail>
-        {data.problems &&
-          data.problems.map((problem, i) => {
+        {topic.problems &&
+          topic.problems.map((problem, i) => {
             return <Box key={i} problem={problem} />;
           })}
       </Detail>
@@ -111,7 +111,7 @@ export const Result = memo(() => {
         <div>
           <h5>평가 기준</h5>
           <ul>
-            {data.general_info.evaluation_criteria?.map((e, i) => {
+            {topic.general_info.evaluation_criteria?.map((e, i) => {
               return <li key={i}>{e}</li>;
             })}
           </ul>
@@ -119,12 +119,14 @@ export const Result = memo(() => {
         <div>
           <h5>유의 사항</h5>
           <ul>
-            {data.general_info.notes?.map((e, i) => {
+            {topic.general_info.notes?.map((e, i) => {
               return <li key={i}>{e}</li>;
             })}
           </ul>
         </div>
       </General>
     </Wrapper>
+  ) : (
+    <span> 생성된 주제가 없습니다 </span>
   );
 });

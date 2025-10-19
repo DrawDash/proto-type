@@ -11,10 +11,10 @@ const StyledButton = styled.button`
   border: 0px;
 `;
 
-export const Button = memo(({ isDisabled = false, content, onClick }) => {
+export const Button = memo(({ isDisabled = false, content, onClick, isLoading = false }) => {
   return (
-    <StyledButton onClick={onClick} $isDisabled={isDisabled}>
-      {content}
+    <StyledButton onClick={!isDisabled && !isLoading ? onClick : null} $isDisabled={isDisabled || isLoading}>
+      {isLoading ? "주제 생성 중..." : content}
     </StyledButton>
   );
 });
