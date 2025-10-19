@@ -77,56 +77,65 @@ const General = styled.div`
   }
 `;
 
+const Empty = styled.span`
+  text-align: center;
+  font-weight: 300;
+`;
+
 export const Result = memo(({ topic }) => {
   //   const data = JSON.parse(JSON.stringify(mockData));
 
   console.log("rendering Result");
 
-  return topic !== null ? (
+  return (
     <Wrapper>
-      <Content>
-        <h4>{topic.title}</h4>
-        <p>
-          <LibIcon />
-          {`${topic.school_name}·${topic.department_name}`}
-        </p>
-      </Content>
-      <Content>
-        <h5>출제 의도</h5>
-        <p>{topic.context}</p>
-      </Content>
-      <Keyword>
-        {topic.keywords &&
-          topic.keywords.map((keyword, i) => {
-            return <span key={i}>{keyword}</span>;
-          })}
-      </Keyword>
-      <Detail>
-        {topic.problems &&
-          topic.problems.map((problem, i) => {
-            return <Box key={i} problem={problem} />;
-          })}
-      </Detail>
-      <General>
-        <div>
-          <h5>평가 기준</h5>
-          <ul>
-            {topic.general_info.evaluation_criteria?.map((e, i) => {
-              return <li key={i}>{e}</li>;
-            })}
-          </ul>
-        </div>
-        <div>
-          <h5>유의 사항</h5>
-          <ul>
-            {topic.general_info.notes?.map((e, i) => {
-              return <li key={i}>{e}</li>;
-            })}
-          </ul>
-        </div>
-      </General>
+      {topic !== null ? (
+        <>
+          <Content>
+            <h4>{topic.title}</h4>
+            <p>
+              <LibIcon />
+              {`${topic.school_name}·${topic.department_name}`}
+            </p>
+          </Content>
+          <Content>
+            <h5>출제 의도</h5>
+            <p>{topic.context}</p>
+          </Content>
+          <Keyword>
+            {topic.keywords &&
+              topic.keywords.map((keyword, i) => {
+                return <span key={i}>{keyword}</span>;
+              })}
+          </Keyword>
+          <Detail>
+            {topic.problems &&
+              topic.problems.map((problem, i) => {
+                return <Box key={i} problem={problem} />;
+              })}
+          </Detail>
+          <General>
+            <div>
+              <h5>평가 기준</h5>
+              <ul>
+                {topic.general_info.evaluation_criteria?.map((e, i) => {
+                  return <li key={i}>{e}</li>;
+                })}
+              </ul>
+            </div>
+            <div>
+              <h5>유의 사항</h5>
+              <ul>
+                {topic.general_info.notes?.map((e, i) => {
+                  return <li key={i}>{e}</li>;
+                })}
+              </ul>
+            </div>
+          </General>
+        </>
+      ) : (
+        <Empty> 생성된 주제가 없습니다 </Empty>
+      )}
     </Wrapper>
-  ) : (
-    <span> 생성된 주제가 없습니다 </span>
   );
 });
