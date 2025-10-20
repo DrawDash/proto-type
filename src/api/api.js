@@ -7,6 +7,7 @@ export const generateTopic = async (payload) => {
   try {
     const response = await fetch(url, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -29,7 +30,9 @@ export const getUniv = async () => {
   console.log("API : getUniv");
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error(`API 통신 실패: ${response.status} (${response.statusText})`);
@@ -46,7 +49,9 @@ export const getDepart = async () => {
   const url = `${API_TARGET}/api/schools/1/departments/`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error(`API 통신 실패: ${response.status} (${response.statusText})`);
